@@ -3,7 +3,6 @@ using UnityEngine;
 public class GameManager : MonoBehaviour
 {
     private LocalStorage localStorge;
-    // private RestClient restClient;
     private AlgodManager algodManager;
 
 
@@ -12,15 +11,14 @@ public class GameManager : MonoBehaviour
     async void Start()
     {
         localStorge = GetComponent<LocalStorage>();
-        // restClient = GetComponent<RestClient>();
         algodManager = GetComponent<AlgodManager>();
         InitAccount();
         string address = algodManager.GetAddress();
         Debug.Log(address);
         double balance = await algodManager.CheckBalanceByAddress(address);
         Debug.Log(balance);
-        // algodManager.MakePayment("ZRVP5276H7PWMI5VIQVLFGICYEOAUVD467FJ2Z72UUGDETF6K7LXBRHQ4E", 1).Forget();
-
+        string txId = await algodManager.MakePayment("ZRVP5276H7PWMI5VIQVLFGICYEOAUVD467FJ2Z72UUGDETF6K7LXBRHQ4E", 1);
+        Debug.Log(txId);
     }
 
     public void InitAccount()

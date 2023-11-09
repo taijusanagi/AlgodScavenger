@@ -61,10 +61,12 @@ public class AlgodManager : MonoBehaviour
         }
     }
 
-    public async UniTaskVoid MakePayment(string reciever, ulong amount)
+    // this function is not used in prod, just for testing
+    public async UniTask<string> MakePayment(string reciever, ulong amount)
     {
         var (txnParamsError, txnParams) = await algod.TransactionParams();
         txnParamsError.ThrowIfError();
+        Debug.Log($"Successfully created params!");
         var paymentTxn = Transaction.Payment(
             sender: _account.Address,
             txnParams: txnParams,
@@ -74,9 +76,11 @@ public class AlgodManager : MonoBehaviour
         var signedTxn = _account.SignTxn(paymentTxn);
         var (sendTxnError, txid) = await algod.SendTransaction(signedTxn);
         sendTxnError.ThrowIfError();
+        Debug.Log($"Successfully sent tx!");
         var (confirmErr, confirmed) = await algod.WaitForConfirmation(txid.TxId);
         confirmErr.ThrowIfError();
         Debug.Log($"Successfully made payment! Confirmed on round {confirmed.ConfirmedRound}");
+        return txid.TxId;
     }
 
 }
