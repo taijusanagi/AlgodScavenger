@@ -1,3 +1,4 @@
+using System;
 using Algorand.Unity;
 using Cysharp.Threading.Tasks;
 using UnityEngine;
@@ -11,14 +12,12 @@ public class AlgodManager : MonoBehaviour
 
     private string apiBaseURL = "https://testnet-api.algonode.cloud/";
 
-    // I could not find testnet API works fine with the Algorand.Unity package
-    // So I decided using API directly for some logic
     AlgodClient algod;
     private Account _account;
 
     void Start()
     {
-
+        algod = new AlgodClient(apiBaseURL);
     }
 
     public string CreateAccount()
@@ -31,7 +30,6 @@ public class AlgodManager : MonoBehaviour
     {
         Account account = new Account(PrivateKey.FromString(privateKey));
         _account = account;
-
     }
 
 
@@ -40,10 +38,10 @@ public class AlgodManager : MonoBehaviour
         return _account.Address.ToString();
     }
 
-    // I could not find testnet API works fine with the Algorand.Unity package
-    // So I decided taking amount valud from API directly
+    // AlgodClient Account not working so get balance from API directly
     public async UniTask<double> CheckBalanceByAddress(string address)
     {
+
         {
             using (UnityWebRequest webRequest = UnityWebRequest.Get(apiBaseURL + "v2/accounts/" + address))
             {
@@ -61,6 +59,24 @@ public class AlgodManager : MonoBehaviour
                 }
             }
         }
+    }
+
+    public async UniTaskVoid MakePayment(string reciever, ulong amount)
+    {
+        var (txnParamsError, txnParams) = await algod.TransactionParams();
+        txnParamsError.ThrowIfError();
+        var paymentTxn = Transaction.Payment(
+            sender: _account.Address,
+            txnParams: txnParams,
+            receiver: Address.FromString(reciever),
+            amount: amount
+        );
+        var signedTxn = _account.SignTxn(paymentTxn);
+        var (sendTxnError, txid) = await algod.SendTransaction(signedTxn);
+        sendTxnError.ThrowIfError();
+        var (confirmErr, confirmed) = await algod.WaitForConfirmation(txid.TxId);
+        confirmErr.ThrowIfError();
+        Debug.Log($"Successfully made payment! Confirmed on round {confirmed.ConfirmedRound}");
     }
 
 }

@@ -19,7 +19,8 @@ public class GameManager : MonoBehaviour
         Debug.Log(address);
         double balance = await algodManager.CheckBalanceByAddress(address);
         Debug.Log(balance);
-        // restClient.GetRequest("https://testnet-api.algonode.cloud/v2/accounts/ZRVP5276H7PWMI5VIQVLFGICYEOAUVD467FJ2Z72UUGDETF6K7LXBRHQ4E").Forget();
+        // algodManager.MakePayment("ZRVP5276H7PWMI5VIQVLFGICYEOAUVD467FJ2Z72UUGDETF6K7LXBRHQ4E", 1).Forget();
+
     }
 
     public void InitAccount()
