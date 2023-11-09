@@ -3,17 +3,23 @@ using UnityEngine;
 public class GameManager : MonoBehaviour
 {
     private LocalStorage localStorge;
+    // private RestClient restClient;
     private AlgodManager algodManager;
+
 
     private string storageKeyForPrivateKey = "privateKey";
 
-    void Start()
+    async void Start()
     {
         localStorge = GetComponent<LocalStorage>();
+        // restClient = GetComponent<RestClient>();
         algodManager = GetComponent<AlgodManager>();
         InitAccount();
         string address = algodManager.GetAddress();
         Debug.Log(address);
+        double balance = await algodManager.CheckBalanceByAddress(address);
+        Debug.Log(balance);
+        // restClient.GetRequest("https://testnet-api.algonode.cloud/v2/accounts/ZRVP5276H7PWMI5VIQVLFGICYEOAUVD467FJ2Z72UUGDETF6K7LXBRHQ4E").Forget();
     }
 
     public void InitAccount()
