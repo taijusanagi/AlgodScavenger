@@ -67,6 +67,7 @@ public class AlgodManager : MonoBehaviour
         var (txnParamsError, txnParams) = await algod.TransactionParams();
         txnParamsError.ThrowIfError();
         Debug.Log($"Successfully created params!");
+
         var paymentTxn = Transaction.Payment(
             sender: _account.Address,
             txnParams: txnParams,
