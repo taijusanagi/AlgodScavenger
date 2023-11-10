@@ -11,16 +11,21 @@ public class AlgodManager : MonoBehaviour
     }
 
     private string apiBaseURL = "https://testnet-api.algonode.cloud/";
-
-    // Contracts/what_is_pyteal/counter.py
-    private ulong testAppId = 474685353;
+    private ulong algodStoneId = 475835119;
+    private ulong appId = 475848475;
 
     AlgodClient algod;
-    private Account _account;
+
+    // this is hackathon product, so keep it simple
+    private string ownerMnemonic = "nest skill piano place typical resemble staff identify proof urban mail birth range pass fly gossip apple easily exhibit angle cream critic comic ability true";
+    private Account _ownerAccount;
+    private Account _userAccount;
+
 
     void Start()
     {
         algod = new AlgodClient(apiBaseURL);
+        _ownerAccount = new Account(PrivateKey.FromMnemonic(ownerMnemonic));
     }
 
     public string CreateAccount()
@@ -32,13 +37,13 @@ public class AlgodManager : MonoBehaviour
     public void SetAccountFromPrivateKey(string privateKey)
     {
         Account account = new Account(PrivateKey.FromString(privateKey));
-        _account = account;
+        _userAccount = account;
     }
 
 
     public string GetAddress()
     {
-        return _account.Address.ToString();
+        return _userAccount.Address.ToString();
     }
 
     // AlgodClient Account not working so get balance from API directly
@@ -72,12 +77,12 @@ public class AlgodManager : MonoBehaviour
         Debug.Log($"Successfully created params!");
 
         var paymentTxn = Transaction.Payment(
-            sender: _account.Address,
+            sender: _userAccount.Address,
             txnParams: txnParams,
             receiver: Address.FromString(reciever),
             amount: amount
         );
-        var signedTxn = _account.SignTxn(paymentTxn);
+        var signedTxn = _userAccount.SignTxn(paymentTxn);
         var (sendTxnError, txid) = await algod.SendTransaction(signedTxn);
         sendTxnError.ThrowIfError();
         Debug.Log($"Successfully sent tx!");
@@ -87,27 +92,59 @@ public class AlgodManager : MonoBehaviour
         return txid.TxId;
     }
 
-    public async UniTask<string> CallTestContract()
+    public async UniTask<string> Scavenge()
     {
         var (txnParamsError, txnParams) = await algod.TransactionParams();
         txnParamsError.ThrowIfError();
         Debug.Log($"Successfully created params!");
 
-        string base64String = "L6RzKA==";
+        string base64String = "iC0e8A==";
         byte[] bytes = Convert.FromBase64String(base64String);
         CompiledTeal compiledTeal = bytes;
         CompiledTeal[] appArguments = new CompiledTeal[] { compiledTeal };
 
-        var paymentTxn = Transaction.AppCall(_account.Address, txnParams, testAppId, OnCompletion.NoOp, appArguments);
-        var signedTxn = _account.SignTxn(paymentTxn);
+        var paymentTxn = Transaction.AppCall(_userAccount.Address, txnParams, appId, OnCompletion.NoOp, appArguments);
+        var signedTxn = _userAccount.SignTxn(paymentTxn);
+
         var (sendTxnError, txid) = await algod.SendTransaction(signedTxn);
         sendTxnError.ThrowIfError();
         Debug.Log($"Successfully sent tx!");
         var (confirmErr, confirmed) = await algod.WaitForConfirmation(txid.TxId);
         confirmErr.ThrowIfError();
-        Debug.Log($"Successfully called app! Confirmed on round {confirmed.ConfirmedRound}");
+        Debug.Log($"Successfully scavenged! Confirmed on round {confirmed.ConfirmedRound}");
         return txid.TxId;
     }
 
+    public async UniTask<string> AcceptAlgodStone()
+    {
+        var (txnParamsError, txnParams) = await algod.TransactionParams();
+        txnParamsError.ThrowIfError();
+        Debug.Log($"Successfully created params!");
+        var txn = Transaction.AssetAccept(_userAccount.Address, txnParams, algodStoneId);
+        var signedTxn = _userAccount.SignTxn(txn);
+        var (sendTxnError, txid) = await algod.SendTransaction(signedTxn);
+        sendTxnError.ThrowIfError();
+        Debug.Log($"Successfully sent tx!");
+        var (confirmErr, confirmed) = await algod.WaitForConfirmation(txid.TxId);
+        confirmErr.ThrowIfError();
+        Debug.Log($"Successfully optin! Confirmed on round {confirmed.ConfirmedRound}");
+        return txid.TxId;
+    }
+
+    public async UniTask<string> MintAlgodStone(ulong amount)
+    {
+        var (txnParamsError, txnParams) = await algod.TransactionParams();
+        txnParamsError.ThrowIfError();
+        Debug.Log($"Successfully created params!");
+        var txn = Transaction.AssetTransfer(_ownerAccount.Address, txnParams, algodStoneId, amount, _userAccount.Address);
+        var signedTxn = _ownerAccount.SignTxn(txn);
+        var (sendTxnError, txid) = await algod.SendTransaction(signedTxn);
+        sendTxnError.ThrowIfError();
+        Debug.Log($"Successfully sent tx!");
+        var (confirmErr, confirmed) = await algod.WaitForConfirmation(txid.TxId);
+        confirmErr.ThrowIfError();
+        Debug.Log($"Successfully sent asset! Confirmed on round {confirmed.ConfirmedRound}");
+        return txid.TxId;
+    }
 
 }

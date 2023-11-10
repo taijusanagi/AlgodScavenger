@@ -1,6 +1,6 @@
-# 2023 Build A Bull
+# AlgodScavenger
 
-TBD
+Welcome to AlgodScavenger! In this adventure, you dive into the world of Algorand blockchain, searching for the elusive Algod Stone hidden in the mined blocks. Each block you explore brings you closer to this rare gem. Get ready for a journey full of discovery and excitement in the digital depths of Algorand!
 
 ## Reference
 
@@ -20,6 +20,8 @@ In the scene, the following functionalitis were tested.
 - Get balance
 - Send transaction
 - Interact with smart contract
+
+https://github.com/taijusanagi/AlgodScavenger/blob/main/Assets/Scripts/AlgodManager.cs
 
 ### Technical Challenge
 

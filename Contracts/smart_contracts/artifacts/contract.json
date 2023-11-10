@@ -1,0 +1,20 @@
+{
+  "name": "Algod Scavenger",
+  "methods": [
+    {
+      "name": "scavenge",
+      "args": [],
+      "returns": {
+        "type": "void"
+      }
+    },
+    {
+      "name": "read_count",
+      "args": [],
+      "returns": {
+        "type": "uint64"
+      }
+    }
+  ],
+  "networks": {}
+}

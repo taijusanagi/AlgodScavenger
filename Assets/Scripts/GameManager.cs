@@ -19,8 +19,12 @@ public class GameManager : MonoBehaviour
         Debug.Log(balance);
         // string txId = await algodManager.MakePayment("ZRVP5276H7PWMI5VIQVLFGICYEOAUVD467FJ2Z72UUGDETF6K7LXBRHQ4E", 1);
         // Debug.Log(txId);
-        string txId = await algodManager.CallTestContract();
-        Debug.Log(txId);
+        // string scavengeTxId = await algodManager.Scavenge();
+        // Debug.Log(scavengeTxId);
+        // string optInTxId = await algodManager.AcceptAlgodStone();
+        // Debug.Log(optInTxId);
+        // string transferTxId = await algodManager.MintAlgodStone(1);
+        // Debug.Log(transferTxId);
     }
 
     public void InitAccount()

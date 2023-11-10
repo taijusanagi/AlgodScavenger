@@ -10,7 +10,7 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 1b18fa56602714cbf9292caea3984246, type: 3}
-  m_Name: New Algod Client Object
+  m_Name: AlgodClient
   m_EditorClassIdentifier: 
   Client:
     address: https://testnet-api.algonode.cloud

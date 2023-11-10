@@ -10,11 +10,11 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 05e26971ff71046669b85452782df82d, type: 3}
-  m_Name: New Asset Object
+  m_Name: AlgodStone
   m_EditorClassIdentifier: 
   Index:
-    Index: 0
-  Network: 0
+    Index: 475835119
+  Network: 1
   Params:
     Clawback:
       publicKey:
@@ -162,19 +162,19 @@ MonoBehaviour:
         byte0014: 0
         byte0015: 0
     Name:
-      utf8LengthInBytes: 0
+      utf8LengthInBytes: 10
       bytes:
         offset0000:
-          byte0000: 0
-          byte0001: 0
-          byte0002: 0
-          byte0003: 0
-          byte0004: 0
-          byte0005: 0
-          byte0006: 0
-          byte0007: 0
-          byte0008: 0
-          byte0009: 0
+          byte0000: 65
+          byte0001: 108
+          byte0002: 103
+          byte0003: 111
+          byte0004: 100
+          byte0005: 83
+          byte0006: 116
+          byte0007: 111
+          byte0008: 110
+          byte0009: 101
           byte0010: 0
           byte0011: 0
           byte0012: 0
@@ -265,13 +265,13 @@ MonoBehaviour:
           byte0013: 0
           byte0014: 0
           byte0015: 0
-    Total: 0
+    Total: 1000000000000
     UnitName:
-      utf8LengthInBytes: 0
+      utf8LengthInBytes: 2
       bytes:
         offset0000:
-          byte0000: 0
-          byte0001: 0
+          byte0000: 65
+          byte0001: 83
           byte0002: 0
           byte0003: 0
           byte0004: 0
