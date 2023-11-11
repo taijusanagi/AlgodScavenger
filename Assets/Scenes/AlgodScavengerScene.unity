@@ -658,7 +658,7 @@ MonoBehaviour:
     m_HorizontalOverflow: 1
     m_VerticalOverflow: 1
     m_LineSpacing: 1
-  m_Text: Day 1
+  m_Text: Block 1
 --- !u!223 &2789827449121779096
 Canvas:
   m_ObjectHideFlags: 0

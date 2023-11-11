@@ -139,7 +139,7 @@ public class Player : MovingObject
     {
         animator.SetTrigger("playerHit");
         food -= loss;
-        foodText.text = "-" + pointsPerSoda + " Food: " + food;
+        foodText.text = "-" + loss + " Food: " + food;
         CheckIfGameOver();
     }
 
