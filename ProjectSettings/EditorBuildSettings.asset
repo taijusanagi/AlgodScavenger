@@ -5,10 +5,16 @@ EditorBuildSettings:
   m_ObjectHideFlags: 0
   serializedVersion: 2
   m_Scenes:
-  - enabled: 0
-    path: Assets/Scenes/ArgorandSDKInvestigationScene.unity
-    guid: 2cda990e2423bbf4892e6590ba056729
+  - enabled: 1
+    path: Assets/Scenes/MenuScene.unity
+    guid: 38eddd0999f5541e893158c1df0231e0
+  - enabled: 1
+    path: Assets/Scenes/StatusScene.unity
+    guid: 8f52aac6311ef4450a215bf1bb53dd5b
   - enabled: 1
     path: Assets/Scenes/AlgodScavengerScene.unity
     guid: 1c1f6b0afa4af4c05871845e24acaee1
+  - enabled: 0
+    path: Assets/Scenes/ArgorandSDKInvestigationScene.unity
+    guid: 2cda990e2423bbf4892e6590ba056729
   m_configObjects: {}

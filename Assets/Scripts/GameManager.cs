@@ -6,7 +6,7 @@ using UnityEngine.UI;
 public class GameManager : MonoBehaviour
 {
 
-    public float levelStartDelay = 2f;
+    public float levelStartDelay = 0.2f;
     public float turnDelay = .1f;
     public static GameManager instance = null;
     public BoardManger boardScript;
@@ -21,7 +21,6 @@ public class GameManager : MonoBehaviour
     private List<Enemy> enemies;
     private bool enemiesMoving;
     private bool doingSetup;
-
 
     void Awake()
     {
@@ -41,6 +40,7 @@ public class GameManager : MonoBehaviour
 
     private void OnLevelWasLoaded(int index)
     {
+        Debug.Log("OnLevelWasLoaded");
         level++;
         InitGame();
     }
@@ -100,4 +100,5 @@ public class GameManager : MonoBehaviour
         enemiesMoving = false;
 
     }
+
 }

@@ -538,7 +538,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 318b70bbfcfff4ba781bd661bb468adf, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  gameManger: {fileID: 3961365500184062852, guid: 5e243e510f16149c8915c0895c902a58, type: 3}
+  gameManger: {fileID: 5140199836146728803, guid: 5e243e510f16149c8915c0895c902a58, type: 3}
 --- !u!114 &735910831386968927
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -825,6 +825,10 @@ PrefabInstance:
     - target: {fileID: 6130726959429636213, guid: b483744911803430690ed3906c0d6494, type: 3}
       propertyPath: m_Name
       value: Player
+      objectReference: {fileID: 0}
+    - target: {fileID: 6130726959429636213, guid: b483744911803430690ed3906c0d6494, type: 3}
+      propertyPath: m_IsActive
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 9077830493755936809, guid: b483744911803430690ed3906c0d6494, type: 3}
       propertyPath: foodText

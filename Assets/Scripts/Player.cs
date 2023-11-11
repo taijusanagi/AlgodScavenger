@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
+using UnityEngine.SceneManagement;
 
 public class Player : MovingObject
 {
@@ -9,7 +10,7 @@ public class Player : MovingObject
     public int wallDamage = 1;
     public int pointsPerFood = 10;
     public int pointsPerSoda = 20;
-    public float restartLevelDelay = 1f;
+    public float restartLevelDelay = 0.2f;
     public Text foodText;
 
     public AudioClip moveSound1;
@@ -139,7 +140,7 @@ public class Player : MovingObject
 
     private void Restart()
     {
-        Application.LoadLevel(Application.loadedLevel);
+        SceneManager.LoadScene(2);
     }
 
     public void LoseFood(int loss)
