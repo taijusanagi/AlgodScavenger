@@ -6,15 +6,6 @@ Welcome to AlgodScavenger! In this adventure, you dive into the world of Algoran
 
 ### Algoland Unity SDK
 
-Please check ArgorandSDKInvestigationScene in Unity for the detail.
-
-In the scene, the following functionalitis were tested.
-
-- Create account
-- Get balance
-- Send transaction
-- Interact with smart contract
-
 Most of the Algorand integration is kept here.
 
 https://github.com/taijusanagi/AlgodScavenger/blob/main/Assets/Scripts/AlgodManager.cs
