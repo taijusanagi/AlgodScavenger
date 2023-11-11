@@ -10,7 +10,7 @@ The official documentation is here.
 
 https://careboo.github.io/unity-algorand-sdk/5.0/manual/getting_started/your_first_transaction.html
 
-### Investigation
+#### Investigation
 
 Please check ArgorandSDKInvestigationScene in Unity for the detail.
 
@@ -23,6 +23,20 @@ In the scene, the following functionalitis were tested.
 
 https://github.com/taijusanagi/AlgodScavenger/blob/main/Assets/Scripts/AlgodManager.cs
 
-### Technical Challenge
+#### Technical Challenge
 
 - Get balance with client in official doc is not working, so prepare code to interact with API directory.
+
+## Asset from Unity Asset Store
+
+For this hackathon, we focused on integrating Algorand blockchain into game, so game part is almost from this tutorial.
+
+https://learn.unity.com/project/2d-roguelike-tutorial
+
+Based on the tutorial, we added the followings
+
+- Original story for Algod Stone and Scavenger
+- Create Algorand local wallet
+- Send Algorand tx for game start
+- Transfer Algorand ASA for Algod Stone picking
+- Required UI for the Algorand integration
