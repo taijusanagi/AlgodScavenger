@@ -10,7 +10,7 @@ Most of the Algorand integration is kept here.
 
 https://github.com/taijusanagi/AlgodScavenger/blob/main/Assets/Scripts/AlgodManager.cs
 
-## Asset from Unity Asset Store
+### Asset from Unity Asset Store
 
 For this hackathon, we focused on integrating Algorand blockchain into game, so game part is almost from this tutorial.
 
