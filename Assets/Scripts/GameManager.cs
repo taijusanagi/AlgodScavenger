@@ -1,49 +1,103 @@
+using System.Collections;
 using UnityEngine;
+using System.Collections.Generic;
+using UnityEngine.UI;
 
 public class GameManager : MonoBehaviour
 {
-    private LocalStorage localStorge;
-    private AlgodManager algodManager;
+
+    public float levelStartDelay = 2f;
+    public float turnDelay = .1f;
+    public static GameManager instance = null;
+    public BoardManger boardScript;
+    public int playerFoodPoints = 100;
+    [HideInInspector] public bool playersTurn = true;
 
 
-    private string storageKeyForPrivateKey = "privateKey";
+    private Text levelText;
+    private GameObject levelImage;
 
-    async void Start()
+    private int level = 1;
+    private List<Enemy> enemies;
+    private bool enemiesMoving;
+    private bool doingSetup;
+
+
+    void Awake()
     {
-        localStorge = GetComponent<LocalStorage>();
-        algodManager = GetComponent<AlgodManager>();
-        InitAccount();
-        string address = algodManager.GetAddress();
-        Debug.Log(address);
-        double balance = await algodManager.CheckBalanceByAddress(address);
-        Debug.Log(balance);
-        // string txId = await algodManager.MakePayment("ZRVP5276H7PWMI5VIQVLFGICYEOAUVD467FJ2Z72UUGDETF6K7LXBRHQ4E", 1);
-        // Debug.Log(txId);
-        // string scavengeTxId = await algodManager.Scavenge();
-        // Debug.Log(scavengeTxId);
-        // string optInTxId = await algodManager.AcceptAlgodStone();
-        // Debug.Log(optInTxId);
-        // string transferTxId = await algodManager.MintAlgodStone(1);
-        // Debug.Log(transferTxId);
-    }
-
-    public void InitAccount()
-    {
-        string privateKey = localStorge.LoadFromLocal(storageKeyForPrivateKey);
-        if (privateKey == "")
+        if (instance == null)
         {
-            CreateAndSaveAccount();
+            instance = this;
         }
-        else
+        else if (instance != this)
         {
-            algodManager.SetAccountFromPrivateKey(privateKey);
+            Destroy(gameObject);
         }
+        DontDestroyOnLoad(gameObject);
+        enemies = new List<Enemy>();
+        boardScript = GetComponent<BoardManger>();
+        InitGame();
     }
 
-    public void CreateAndSaveAccount()
+    private void OnLevelWasLoaded(int index)
     {
-        string privateKey = algodManager.CreateAccount();
-        localStorge.SaveToLocal(storageKeyForPrivateKey, privateKey.ToString());
+        level++;
+        InitGame();
     }
 
+    void InitGame()
+    {
+        doingSetup = true;
+        levelImage = GameObject.Find("LevelImage");
+        levelText = GameObject.Find("LevelText").GetComponent<Text>();
+        levelText.text = "Day " + level;
+        levelImage.SetActive(true);
+        Invoke("HideLevelImage", levelStartDelay);
+        enemies.Clear();
+        boardScript.SetupScene(level);
+    }
+
+    private void HideLevelImage()
+    {
+        levelImage.SetActive(false);
+        doingSetup = false;
+    }
+
+    public void GameOver()
+    {
+        levelText.text = "After " + level + " days, you starved.";
+        levelImage.SetActive(true);
+        enabled = false;
+    }
+
+    void Update()
+    {
+        if (playersTurn || enemiesMoving || doingSetup)
+            return;
+        StartCoroutine(MoveEnemies());
+    }
+
+    public void AddEnemyToList(Enemy script)
+    {
+        enemies.Add(script);
+    }
+
+    IEnumerator MoveEnemies()
+    {
+        enemiesMoving = true;
+        yield return new WaitForSeconds(turnDelay);
+        if (enemies.Count == 0)
+        {
+            yield return new WaitForSeconds(turnDelay);
+        }
+
+        for (int i = 0; i < enemies.Count; i++)
+        {
+            enemies[i].MoveEnemy();
+            yield return new WaitForSeconds(enemies[i].moveTime);
+        }
+        playersTurn = true;
+        enemiesMoving = false;
+
+    }
 }
