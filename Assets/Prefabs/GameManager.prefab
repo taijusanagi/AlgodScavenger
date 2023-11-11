@@ -53,6 +53,9 @@ MonoBehaviour:
   foodCount:
     minimum: 5
     maximum: 0
+  stoneCount:
+    minimum: 1
+    maximum: 0
   exit: {fileID: 5696327972074091013, guid: c054039f24e0940e79c4e72f11e9f9ae, type: 3}
   floorTiles:
   - {fileID: 3669149488681804160, guid: d389ef1e015dd4a51b66f56eaf485b53, type: 3}
@@ -82,6 +85,8 @@ MonoBehaviour:
   - {fileID: 2448805132118960260, guid: c55576661c0e9409baf378400abbc647, type: 3}
   - {fileID: 2209234818923249723, guid: ea6caab858bbb4922b611358ab81164f, type: 3}
   - {fileID: 8116664141429950249, guid: 97e672267ca6f4213824924eaa1f78ef, type: 3}
+  stoneTiles:
+  - {fileID: 1635074705074335855, guid: 690bc6acf0cbd42ab9a517103055b301, type: 3}
 --- !u!114 &93446933432978938
 MonoBehaviour:
   m_ObjectHideFlags: 0

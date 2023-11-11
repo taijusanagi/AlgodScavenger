@@ -20,16 +20,19 @@ public class BoardManger : MonoBehaviour
         }
     }
 
+    public int stoneRate = 1;
     public int columns = 8;
     public int rows = 8;
     public Count wallCount = new Count(5, 9);
     public Count foodCount = new Count(1, 5);
+    public Count stoneCount = new Count(0, 1);
     public GameObject exit;
     public GameObject[] floorTiles;
     public GameObject[] wallTiles;
     public GameObject[] foodTiles;
     public GameObject[] enemyTiles;
     public GameObject[] outerWallTiles;
+    public GameObject[] stoneTiles;
     private Transform boardHolder;
     private List<Vector3> gridPositions = new List<Vector3>();
 
@@ -92,6 +95,10 @@ public class BoardManger : MonoBehaviour
         InitializeList();
         LayoutObjectAtRandom(wallTiles, wallCount.minimum, wallCount.maximum);
         LayoutObjectAtRandom(foodTiles, foodCount.minimum, foodCount.maximum);
+        if (level % stoneRate == 0)
+        {
+            LayoutObjectAtRandom(stoneTiles, stoneCount.minimum, stoneCount.maximum);
+        }
         int enemyCount = (int)Mathf.Log(level, 2f);
         LayoutObjectAtRandom(enemyTiles, enemyCount, enemyCount);
         Instantiate(exit, new Vector3(columns - 1, rows - 1, 0f), Quaternion.identity);

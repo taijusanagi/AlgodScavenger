@@ -209,3 +209,4 @@ MonoBehaviour:
   drinkSound1: {fileID: 8300000, guid: b6b608537288246c9a464915db27bf52, type: 3}
   drinkSound2: {fileID: 8300000, guid: bcb9dda73ee914d3e8f252895f73f461, type: 3}
   gameOverSound: {fileID: 8300000, guid: e2beefeb2273f4efe992adf5b8d67c29, type: 3}
+  stoneSound: {fileID: 8300000, guid: 50c8c7a0c33a2421db594ff66d977c81, type: 3}

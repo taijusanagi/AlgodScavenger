@@ -19,6 +19,7 @@ public class Player : MovingObject
     public AudioClip drinkSound1;
     public AudioClip drinkSound2;
     public AudioClip gameOverSound;
+    public AudioClip stoneSound;
 
     private Animator animator;
     private int food;
@@ -119,6 +120,12 @@ public class Player : MovingObject
             food += pointsPerSoda;
             foodText.text = "+" + pointsPerSoda + " Food: " + food;
             SoundManager.instance.RandomizeSfx(drinkSound1, drinkSound2);
+            other.gameObject.SetActive(false);
+        }
+        else if (other.tag == "Stone")
+        {
+            Debug.Log("Implement Get Stone");
+            SoundManager.instance.RandomizeSfx(stoneSound, stoneSound);
             other.gameObject.SetActive(false);
         }
     }
