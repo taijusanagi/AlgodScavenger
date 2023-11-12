@@ -141,6 +141,7 @@ public class Player : MovingObject
     private void Restart()
     {
         SceneManager.LoadScene(2);
+        GameManager.instance.LevelUp();
     }
 
     public void LoseFood(int loss)
@@ -157,8 +158,10 @@ public class Player : MovingObject
         if (food <= 0)
         {
             SoundManager.instance.PlaySingle(gameOverSound);
+            SoundManager.instance.isStopped = true;
             SoundManager.instance.musicSource.Stop();
             GameManager.instance.GameOver();
+            food = 100;
         }
     }
 }

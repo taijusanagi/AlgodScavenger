@@ -1,0 +1,78 @@
+using System.Collections;
+using System.Collections.Generic;
+using UnityEngine;
+using UnityEngine.UI;
+
+public class AccountManager : MonoBehaviour
+{
+
+
+    public static AccountManager instance = null;
+
+    public string address;
+
+    private LocalStorage localStorge;
+    private AlgodManager algodManager;
+
+    private string storageKeyForPrivateKey = "privateKey";
+
+    void Awake()
+    {
+        Debug.Log("AccountManager.awake");
+        if (instance == null)
+        {
+            instance = this;
+        }
+        else if (instance != this)
+        {
+            Destroy(gameObject);
+        }
+        DontDestroyOnLoad(gameObject);
+        localStorge = GetComponent<LocalStorage>();
+        algodManager = GetComponent<AlgodManager>();
+    }
+
+    public bool LoadAccount()
+    {
+        string privateKey = localStorge.LoadFromLocal(storageKeyForPrivateKey);
+        if (privateKey != "")
+        {
+            algodManager.SetAccountFromPrivateKey(privateKey);
+        }
+        return privateKey != "";
+    }
+
+    public void CreateAccount()
+    {
+        Debug.Log("CreateAccount start");
+        CreateAndSaveAccount();
+        Debug.Log("CreateAccount end");
+    }
+
+    public void DeleteAccount()
+    {
+        localStorge.DeleteFromLocal(storageKeyForPrivateKey);
+    }
+
+    public void CreateAndSaveAccount()
+    {
+        string privateKey = algodManager.CreateAccount();
+        instance.localStorge.SaveToLocal(storageKeyForPrivateKey, privateKey.ToString());
+    }
+
+    void Start()
+    {
+        Debug.Log("start");
+    }
+
+    // Update is called once per frame
+    void Update()
+    {
+
+    }
+
+    public string GetAddress()
+    {
+        return algodManager.GetAddress();
+    }
+}

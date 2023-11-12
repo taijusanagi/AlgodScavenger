@@ -2,6 +2,7 @@ using System.Collections;
 using UnityEngine;
 using System.Collections.Generic;
 using UnityEngine.UI;
+using UnityEngine.SceneManagement;
 
 public class GameManager : MonoBehaviour
 {
@@ -22,6 +23,8 @@ public class GameManager : MonoBehaviour
     private bool enemiesMoving;
     private bool doingSetup;
 
+    private bool justGameOver = false;
+
     void Awake()
     {
         if (instance == null)
@@ -35,14 +38,29 @@ public class GameManager : MonoBehaviour
         DontDestroyOnLoad(gameObject);
         enemies = new List<Enemy>();
         boardScript = GetComponent<BoardManger>();
-        InitGame();
     }
 
     private void OnLevelWasLoaded(int index)
     {
-        Debug.Log("OnLevelWasLoaded");
+        int buildIndex = SceneManager.GetActiveScene().buildIndex;
+        if (buildIndex == 2)
+        {
+            if (SoundManager.instance.isStopped)
+            {
+                SoundManager.instance.musicSource.Play();
+                SoundManager.instance.isStopped = false;
+            }
+            if (!enabled)
+            {
+                enabled = true;
+            }
+            InitGame();
+        }
+    }
+
+    public void LevelUp()
+    {
         level++;
-        InitGame();
     }
 
     void InitGame()
@@ -68,6 +86,15 @@ public class GameManager : MonoBehaviour
         levelText.text = "You starved at Block " + level + ".";
         levelImage.SetActive(true);
         enabled = false;
+        level = 1;
+        Invoke("MoveToStatus", 2f);
+        // SceneManager.LoadScene(0);
+
+    }
+
+    private void MoveToStatus()
+    {
+        SceneManager.LoadScene(0);
     }
 
     void Update()

@@ -105,5 +105,3 @@ MonoBehaviour:
   boardScript: {fileID: 0}
   playerFoodPoints: 100
   playersTurn: 1
-  mainMenu: {fileID: 3932413803390407839, guid: 1a3240703c3d44de4b05e5f5085b1421, type: 3}
-  status: {fileID: 2481029001904947482, guid: 0e687f5da867e4fe4ad66e18bb15bbec, type: 3}

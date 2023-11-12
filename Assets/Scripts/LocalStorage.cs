@@ -17,6 +17,12 @@ public class LocalStorage : MonoBehaviour
         }
     }
 
+    public void DeleteFromLocal(string key)
+    {
+        string path = GetPath();
+        File.Delete(path + key);
+    }
+
     private string GetPath()
     {
         string path = Application.persistentDataPath + "/AppData/";
