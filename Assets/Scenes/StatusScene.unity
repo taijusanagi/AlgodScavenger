@@ -248,6 +248,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   addressText: {fileID: 690618825}
+  stoneText: {fileID: 288500926}
   startButton: {fileID: 1543769979}
 --- !u!1 &258652715
 GameObject:

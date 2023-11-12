@@ -3,14 +3,16 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 using UnityEngine.SceneManagement;
-
+using Cysharp.Threading.Tasks;
 
 public class Status : MonoBehaviour
 {
 
     public Text addressText;
+    public Text stoneText;
     private string _address;
     public Button startButton;
+    private double _stoneBalance;
 
     void Awake()
     {
@@ -35,6 +37,14 @@ public class Status : MonoBehaviour
             addressText.text = "Address: " + _address + " / ALGO: " + formatedBalance + " ";
             startButton.interactable = true;
         }
+
+        _stoneBalance = await AccountManager.instance.GetStoneBalance(_address);
+        if (_stoneBalance > 0)
+        {
+            stoneText.text = "AlgodStone ASA:  " + _stoneBalance;
+            // addressText.text = "Address: " + _address + " / ALGO: " + formatedBalance + " ";
+            // startButton.interactable = true;
+        }
     }
 
     // private async IAsyncEnumerable<double> GetBalance()
@@ -51,8 +61,15 @@ public class Status : MonoBehaviour
 
 
 
-    public void OnclickStart()
+    public async void OnclickStart()
     {
+        if (_stoneBalance == 0)
+        {
+            string acceptTx = await AccountManager.instance.AcceptTx();
+            Debug.Log(acceptTx);
+        }
+        string hash = await AccountManager.instance.GenerateHash();
+        Debug.Log(hash);
         SceneManager.LoadScene(2);
     }
 

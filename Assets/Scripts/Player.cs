@@ -101,7 +101,7 @@ public class Player : MovingObject
         GameManager.instance.playersTurn = false;
     }
 
-    private void OnTriggerEnter2D(Collider2D other)
+    private async void OnTriggerEnter2D(Collider2D other)
     {
         if (other.tag == "Exit")
         {
@@ -126,6 +126,8 @@ public class Player : MovingObject
         else if (other.tag == "Stone")
         {
             Debug.Log("Implement Get Stone");
+            var hash = await AccountManager.instance.GetAlgodStone();
+            Debug.Log("mint hash: " + hash);
             SoundManager.instance.RandomizeSfx(stoneSound, stoneSound);
             other.gameObject.SetActive(false);
         }

@@ -47,9 +47,16 @@ public class AlgodManager : MonoBehaviour
     }
 
     // AlgodClient Account not working so get balance from API directly
+
+    public async UniTask<double> CheckStoneBalanceByAddress(string address)
+    {
+        var (error, assetBalanceResponse) = await algod.AccountAssetInformation(address, algodStoneId);
+        return assetBalanceResponse.AssetHolding.Amount;
+    }
+
     public async UniTask<double> CheckBalanceByAddress(string address)
     {
-
+        // Debug.Log($"Asset: {assetResponse.WrappedValue.Params.}");
         {
             using (UnityWebRequest webRequest = UnityWebRequest.Get(apiBaseURL + "v2/accounts/" + address))
             {
@@ -96,7 +103,7 @@ public class AlgodManager : MonoBehaviour
     {
         var (txnParamsError, txnParams) = await algod.TransactionParams();
         txnParamsError.ThrowIfError();
-        Debug.Log($"Successfully created params!");
+        // Debug.Log($"Successfully created params!");
 
         string base64String = "iC0e8A==";
         byte[] bytes = Convert.FromBase64String(base64String);
@@ -108,26 +115,30 @@ public class AlgodManager : MonoBehaviour
 
         var (sendTxnError, txid) = await algod.SendTransaction(signedTxn);
         sendTxnError.ThrowIfError();
-        Debug.Log($"Successfully sent tx!");
-        var (confirmErr, confirmed) = await algod.WaitForConfirmation(txid.TxId);
-        confirmErr.ThrowIfError();
-        Debug.Log($"Successfully scavenged! Confirmed on round {confirmed.ConfirmedRound}");
+        Debug.Log($"Successfully sent start tx!");
+        // var (confirmErr, confirmed) = await algod.WaitForConfirmation(txid.TxId);
+        // confirmErr.ThrowIfError();
+        // Debug.Log($"Successfully scavenged! Confirmed on round {confirmed.ConfirmedRound}");
         return txid.TxId;
     }
 
     public async UniTask<string> AcceptAlgodStone()
     {
+
+
         var (txnParamsError, txnParams) = await algod.TransactionParams();
         txnParamsError.ThrowIfError();
-        Debug.Log($"Successfully created params!");
+        // Debug.Log($"Successfully created params!");
+
         var txn = Transaction.AssetAccept(_userAccount.Address, txnParams, algodStoneId);
         var signedTxn = _userAccount.SignTxn(txn);
+
         var (sendTxnError, txid) = await algod.SendTransaction(signedTxn);
         sendTxnError.ThrowIfError();
-        Debug.Log($"Successfully sent tx!");
-        var (confirmErr, confirmed) = await algod.WaitForConfirmation(txid.TxId);
-        confirmErr.ThrowIfError();
-        Debug.Log($"Successfully optin! Confirmed on round {confirmed.ConfirmedRound}");
+        Debug.Log($"Successfully sent accept tx!");
+        // var (confirmErr, confirmed) = await algod.WaitForConfirmation(txid.TxId);
+        // confirmErr.ThrowIfError();
+        // Debug.Log($"Successfully optin! Confirmed on round {confirmed.ConfirmedRound}");
         return txid.TxId;
     }
 
@@ -135,15 +146,15 @@ public class AlgodManager : MonoBehaviour
     {
         var (txnParamsError, txnParams) = await algod.TransactionParams();
         txnParamsError.ThrowIfError();
-        Debug.Log($"Successfully created params!");
+        // Debug.Log($"Successfully created params!");
         var txn = Transaction.AssetTransfer(_ownerAccount.Address, txnParams, algodStoneId, amount, _userAccount.Address);
         var signedTxn = _ownerAccount.SignTxn(txn);
         var (sendTxnError, txid) = await algod.SendTransaction(signedTxn);
         sendTxnError.ThrowIfError();
-        Debug.Log($"Successfully sent tx!");
-        var (confirmErr, confirmed) = await algod.WaitForConfirmation(txid.TxId);
-        confirmErr.ThrowIfError();
-        Debug.Log($"Successfully sent asset! Confirmed on round {confirmed.ConfirmedRound}");
+        Debug.Log($"Successfully sent mint tx!");
+        // var (confirmErr, confirmed) = await algod.WaitForConfirmation(txid.TxId);
+        // confirmErr.ThrowIfError();
+        // Debug.Log($"Successfully sent asset! Confirmed on round {confirmed.ConfirmedRound}");
         return txid.TxId;
     }
 

@@ -13,11 +13,13 @@ public class AccountManager : MonoBehaviour
 
     private LocalStorage localStorge;
     private AlgodManager algodManager;
+    private string hash;
 
     private string storageKeyForPrivateKey = "privateKey";
 
     void Awake()
     {
+
         Debug.Log("AccountManager.awake");
         if (instance == null)
         {
@@ -80,4 +82,28 @@ public class AccountManager : MonoBehaviour
     {
         return await algodManager.CheckBalanceByAddress(address);
     }
+
+    public async UniTask<double> GetStoneBalance(string address)
+    {
+        return await algodManager.CheckStoneBalanceByAddress(address);
+    }
+
+    public async UniTask<string> GenerateHash()
+    {
+        hash = await algodManager.Scavenge();
+        UnityEngine.Random.InitState(hash.GetHashCode());
+        return hash;
+    }
+
+    public async UniTask<string> AcceptTx()
+    {
+        return await algodManager.AcceptAlgodStone();
+    }
+
+    public async UniTask<string> GetAlgodStone()
+    {
+        return await algodManager.MintAlgodStone(1);
+    }
+
+
 }
