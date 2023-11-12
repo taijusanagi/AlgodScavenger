@@ -46,7 +46,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   stoneRate: 1
-  columns: 8
+  columns: 16
   rows: 8
   wallCount:
     minimum: 9
