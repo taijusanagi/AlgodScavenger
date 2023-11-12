@@ -63,6 +63,7 @@ public class Status : MonoBehaviour
 
     public async void OnclickStart()
     {
+        MusicManager.instance.PlayEffect();
         if (_stoneBalance == 0)
         {
             string acceptTx = await AccountManager.instance.AcceptTx();
@@ -70,6 +71,7 @@ public class Status : MonoBehaviour
         }
         string hash = await AccountManager.instance.GenerateHash();
         Debug.Log(hash);
+        MusicManager.instance.StopMusic();
         SceneManager.LoadScene(2);
     }
 

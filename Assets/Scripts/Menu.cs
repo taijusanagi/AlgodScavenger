@@ -16,11 +16,13 @@ public class Menu : MonoBehaviour
 
     public void OnclickContinue()
     {
+        MusicManager.instance.PlayEffect();
         SceneManager.LoadScene(1);
     }
 
     public void OnclickNewGame()
     {
+        MusicManager.instance.PlayEffect();
         AccountManager.instance.DeleteAccount();
         AccountManager.instance.CreateAccount();
         // wait for account creation
