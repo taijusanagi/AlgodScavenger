@@ -125,11 +125,10 @@ public class Player : MovingObject
         }
         else if (other.tag == "Stone")
         {
-            Debug.Log("Implement Get Stone");
-            var hash = await AccountManager.instance.GetAlgodStone();
-            Debug.Log("mint hash: " + hash);
             SoundManager.instance.RandomizeSfx(stoneSound, stoneSound);
             other.gameObject.SetActive(false);
+            var hash = await AccountManager.instance.GetAlgodStone();
+            Debug.Log("mint hash: " + hash);
         }
     }
 
