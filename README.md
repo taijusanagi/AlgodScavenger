@@ -1,6 +1,24 @@
 # AlgodScavenger
 
-Welcome to AlgodScavenger! In this adventure, you dive into the world of Algorand blockchain, searching for the elusive Algod Stone hidden in the mined blocks. Each block you explore brings you closer to this rare gem. Get ready for a journey full of discovery and excitement in the digital depths of Algorand!
+A 2D rogue like game on Algorand.
+
+![screen](./docs/screen.png)
+
+## Story
+
+Welcome to AlgodScavenger!
+
+In this adventure, you dive into the world of Algorand blockchain, searching for the elusive Algod Stone hidden in the mined blocks.
+
+These stones are not just valuable - they're powerful Algorand ASAs, tradable within the blockchain world.
+
+## Integration with Algorand
+
+![status](./docs/status.png)
+
+- When user start new game, new Algorand account is created, and player must fund the account to initiate the game start transaction
+- When player send the game start transaction, the transaction hash is stored and used as seed to stage generation
+- When player found the AlgodStone, the ASA is transfered to the user account
 
 ## Reference
 
