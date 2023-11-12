@@ -12,6 +12,16 @@ In this adventure, you dive into the world of Algorand blockchain, searching for
 
 These stones are not just valuable - they're powerful Algorand ASAs, tradable within the blockchain world.
 
+## Game Design
+
+![screen](./docs/screen.png)
+
+- Random stage is generate every time you start the game based on the Algorand Tx hash
+- Player consumes food when move, and it can be restored by picking fruit or soda
+- Enemy may attack player and huge amount of food is lost when attacked
+- Sometimes, there is AlgoStone can be picked, when it is picked, the ASA is sent to user
+- So, user is to pick food, avoid enemy, then pick more Algod Stone!
+
 ## Integration with Algorand
 
 ![how-it-work](./docs/how-it-work.png)
