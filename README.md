@@ -2,7 +2,7 @@
 
 A 2D rogue like game on Algorand.
 
-![screen](./docs/screen.png)
+![status](./docs/status.png)
 
 ## Story
 
@@ -14,7 +14,7 @@ These stones are not just valuable - they're powerful Algorand ASAs, tradable wi
 
 ## Integration with Algorand
 
-![status](./docs/status.png)
+![how-it-works](./docs/how-it-works.png)
 
 - When user start new game, new Algorand account is created, and player must fund the account to initiate the game start transaction
 - When player send the game start transaction, the transaction hash is stored and used as seed to stage generation
