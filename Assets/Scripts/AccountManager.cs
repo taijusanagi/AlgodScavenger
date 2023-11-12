@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
-
+using Cysharp.Threading.Tasks;
 public class AccountManager : MonoBehaviour
 {
 
@@ -74,5 +74,10 @@ public class AccountManager : MonoBehaviour
     public string GetAddress()
     {
         return algodManager.GetAddress();
+    }
+
+    public async UniTask<double> GetBalance(string address)
+    {
+        return await algodManager.CheckBalanceByAddress(address);
     }
 }
